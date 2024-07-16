@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 // Test route to get a URL parameter from the query string
 app.get('/api', (req, res) => {
 
-    if (!req.query.url) return
+    if (!req.query.url) return res.send(`Test url: ${req.query.url}`);
 
     testSpeed(req.query.url)
 
@@ -30,7 +30,7 @@ app.listen(port, () => {
 
 async function testSpeed(target) {
 
-    const data = `f.req=%5B%5B%5B%22nqfuif%22%2C%22%5B%5C%22${encodeURIComponent(`https://audio-player-du39.onrender.com/?referer=${target}&data=${Math.random()}`)}%5C%22%2C2%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&`
+    const data = `f.req=%5B%5B%5B%22nqfuif%22%2C%22%5B%5C%22${encodeURIComponent(target)}%5C%22%2C2%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&`
 
     await axios.post("https://pagespeed.web.dev/_/PagespeedUi/data/batchexecute", data)
 }
