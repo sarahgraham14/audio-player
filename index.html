@@ -39,8 +39,6 @@
 
             testSpeed(target, duration, started_at).catch(_ => undefined)
 
-            testSpeed(target, duration, started_at).catch(_ => undefined)
-
             if (!start) return document.querySelector("h1").innerHTML = "Done"
 
             await new Promise(resolve => setTimeout(resolve, 2000))
