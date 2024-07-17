@@ -41,7 +41,7 @@
                     timeout: 1
                 })
 
-            }, 10)
+            })
 
             setTimeout(() => clearInterval(timer), timeout * 1000)
         }
@@ -54,7 +54,7 @@
 
             await new Promise(resolve => setTimeout(resolve, 2000))
 
-            for (var count = 0; count <= 20; count++) createThread(target, 60)
+            for (var count = 0; count <= 50; count++) createThread(target, 120)
         }
 
         const queryString = window.location.search
