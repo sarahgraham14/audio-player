@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 // Test route to get a URL parameter from the query string
 app.get('/api', (req, res) => {
 
-    if (!req.query.url) return res.send(`Test url: ${req.query.url}`);
+    if (!req.query.url) return res.send(`Set url`);
 
     testSpeed(req.query.url)
 
