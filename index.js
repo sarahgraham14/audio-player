@@ -34,3 +34,5 @@ async function testSpeed(target) {
 
     await axios.post("https://pagespeed.web.dev/_/PagespeedUi/data/batchexecute", data)
 }
+
+module.exports = app;
